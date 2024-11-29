@@ -1,0 +1,49 @@
+{
+  "Comment": "Generative AI Workflow",
+  "StartAt": "PreprocessData",
+  "States": {
+    "PreprocessData": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:<REGION>:<ACCOUNT_ID>:function:PreprocessingLambda",
+      "Next": "GenerateResponse",
+      "Retry": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "IntervalSeconds": 2,
+          "MaxAttempts": 3,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "Next": "HandleError"
+        }
+      ]
+    },
+    "GenerateResponse": {
+      "Type": "Task",
+      "Resource": "arn:aws:lambda:<REGION>:<ACCOUNT_ID>:function:ResponseGenerationLambda",
+      "End": true,
+      "Retry": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "IntervalSeconds": 2,
+          "MaxAttempts": 3,
+          "BackoffRate": 2.0
+        }
+      ],
+      "Catch": [
+        {
+          "ErrorEquals": ["States.ALL"],
+          "Next": "HandleError"
+        }
+      ]
+    },
+    "HandleError": {
+      "Type": "Fail",
+      "Error": "WorkflowError",
+      "Cause": "Error occurred during execution"
+    }
+  }
+}

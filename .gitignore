@@ -1,0 +1,4 @@
+*.log\n*.pyc\n__pycache__/\n.env\n.env\n*.zip
+.env
+tests/__pycache__/test_preprocessing.cpython-310.pyc
+tests/__pycache__/test_workflow.cpython-310.pyc

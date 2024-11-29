@@ -1,0 +1,6 @@
+AWS_REGION = "us-east-1"
+S3_BUCKET = "generative-ai-project-data"
+DYNAMODB_TABLE = "GenerativeAI_Metadata"
+OPEN_SEARCH_DOMAIN = "generative-ai-opensearch"
+RDS_INSTANCE = "generative-ai-rds"
+EMBEDDING_MODEL = "AWS-Titan"
